@@ -1,0 +1,238 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+* files in this directory. Styles in this file should be added after the last require_* statement.
+* It is generally better to create a new file per style scope.
+*
+*= require_tree .
+*= require_self
+*= require font-awesome
+*/
+@import "bootstrap";
+
+body {
+  font-family: 'Droid Sans';
+}
+
+.icon-link{
+  text-decorations:none; 
+  color:inherit;
+}
+footer{
+  background-color:#1B354F;
+}
+.white-background{
+background-color:white;
+}
+.what-is{
+  color:white;
+  padding: 25px;
+}
+
+.product-description{
+background-color:#FCE3D2;
+padding: 25px;
+}
+
+.right-buffer{
+  margin-right: 20px;
+}
+
+.tagline{
+  line-height: 70px;
+}
+
+body{
+background: linear-gradient( rgba(241, 137, 40, 0.75), rgba(241, 137, 40, 0.75) ), image-url('gplaypattern.png');
+}
+
+.black-tessel{
+background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ), image-url('gplaypattern.png');
+}
+
+.margin-top-buffer{
+margin-top: 25px;
+}
+
+.justified{
+white-space:nowrap;
+}
+
+.top-buffer-large{
+margin-top: 60px;
+}
+
+.chart-container{
+responsive: true;
+padding: 25px;
+}
+
+.orange-header{
+color: #FF6600;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 16px;
+font-style: normal;
+font-variant: normal;
+font-weight: bold;;
+#line-height: 26.4px;
+}
+
+.pdf-helvetica, .pdf-page-header {
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-style: normal;
+font-variant: normal;
+font-size: 12px;
+}
+
+.pdf-page-header-top {
+padding-bottom: 100px;
+padding-top: 50px;
+}
+
+.orange{
+color: #FF6600;
+}
+
+h2 {
+font-size: 16px
+
+}
+
+h4 {
+font-size: 13px
+}
+
+.white-heading {
+color: white;
+font-size: 32px;
+margin-top: 10px;
+}
+
+.sub-heading {
+font-size: 22px;
+
+}
+
+.blue{
+color: #0000FF;
+}
+.teal{
+color:#0070C0;
+font-style: italic;
+font-size: 110%;
+}
+
+.large-text{
+font-size: 120%;
+}
+
+.teal-header{
+color:#0070C0;
+font-size: 110%;
+}
+.teal-line{
+border-color:#0070C0;
+background-color:#0070C0;
+color:#0070C0;
+}
+.spacing{
+margin: 5px;
+}
+
+.bottom-spacing {
+margin-bottom: 15px;
+}
+
+.assumptions{
+font-style: italic;
+font-size: 80%;
+padding: 25px;
+}
+
+.enlarge{
+height: 130%;
+}
+
+.shrink{
+height: 55%;
+}
+
+.move-right{
+margin-left: 20%;
+}
+
+.images-container {
+text-align: justify;
+}
+
+.images-container img {
+display: inline-block;
+}
+
+.images-container:after {
+content: "";
+width: 100%;
+display: inline-block;
+}
+
+.disclaimer-text {
+font-size: 10px;
+margin-top: 3px;
+}
+
+.results-table {
+margin-left: 50px;
+}
+
+.form-group > label:first-child:after {
+content: '*';
+margin-left: 2px;
+color: red;
+}
+
+.spinner {
+border: 16px solid #f3f3f3; /* Light grey */
+border-top: 16px solid #3498db; /* Blue */
+border-radius: 50%;
+width: 25px;
+height: 25px;
+animation: spin 2s linear infinite;
+-webkit-animation: spin 1000ms ease 0s infinite normal;
+-moz-animation: spin 1000ms ease 0s infinite normal;
+-ms-animation: spin 1000ms ease 0s infinite normal;
+-o-animation: spin 1000ms ease 0s infinite normal;
+}
+
+@-ms-keyframes spin { 
+from { -ms-transform: rotate(0deg); }
+to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin { 
+from { -moz-transform: rotate(0deg); }
+to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin { 
+from { -webkit-transform: rotate(0deg); }
+to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin { 
+from { -o-transform: rotate(0deg); }
+to { -o-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 374px) {
+#second_page { font-size: 10px; }
+.btn-sm { font-size: 10px; }
+}
+

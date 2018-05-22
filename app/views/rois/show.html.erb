@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Infomill ROI Report</title>
+  <%= wicked_pdf_javascript_include_tag "http://code.jquery.com/jquery-1.10.0.min.js" %>
+  <%= wicked_pdf_javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js" %>
+
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+
+  <%= wicked_pdf_stylesheet_link_tag "application" %>
+  <%= wicked_pdf_javascript_include_tag "application" %>
+</head>
+<body>
+  <div class="container pdf-helvetica">
+    <div class="row col-12" style="page-break-inside: avoid;">
+      <div class="page-header">
+        <%= wicked_pdf_image_tag("ipad-hand.png", alt: "ipad", class: "float-right spacing", style: "height:250px;") %>
+        <h2 class="orange">What is AnswersAnywhere?</h2>
+      </div>
+      <p>Infomill's AnswersAnywhere is a Knowledge-as-a-Service that combines people, process and technology to create and continuously optimize the knowledge required by field service technicians.</p>
+      <p>Using the AnswersAnywhere proprietary content management system, our knowledge engineers convert hard copy and PDF documents, service manuals, schematic drawings, exploded diagrams, parts lists, product descriptions/alerts, database output, images and videos into a single, normalized, interactive, mobile knowledge base. Currently, over 50,000 field service technicians worldwide use AnswersAnywhere to gain mobile access to break/fix, installation and troubleshooting knowledge.</p>
+
+      <p class="margin-top-buffer offset-1"><%= wicked_pdf_image_tag("wifi.png", alt: "wifi", class: "spacing") %>Offline/Online mode overcomes connectivity issues and gives technicians access to knowledge anywhere in the world</p>
+      <p class="margin-top-buffer offset-1"><%= wicked_pdf_image_tag("arrow.png", alt: "arrow", class: "spacing") %>Fully integrated with field service management solutions to create a &quot;Single Source of Truth&quot; for service technicians</p>
+      <p class="margin-top-buffer offset-1"><%= wicked_pdf_image_tag("clock.png", alt: "clock", class: "spacing") %>Continuously optimized knowledge ensures compliance and provides technicians with the most accurate information available</p>
+    </div>
+
+    <div class="results-table">
+    <div class="row">
+      <div class="col-8">
+        <div class="page-header margin-top-buffer">
+          <h2 class="orange-header">Results Prepared for <%= @roi.name %> at <%= @roi.company %>:</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="card" style="margin-left: -15px">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong class="orange">Profit from Additional Truck Rolls:</strong>
+            <strong class="float-right"> $<%= ActiveSupport::NumberHelper.number_to_delimited(@roi.profit_from_additional_truck_rolls) %></strong>
+          </li>
+          <li class="list-group-item"><strong class="orange">Eliminated Costs from Return Visits:</strong>
+            <strong class="float-right"> $<%= ActiveSupport::NumberHelper.number_to_delimited(@roi.eliminated_costs_from_return_visits) %></strong>
+          </li>
+          <li class="list-group-item"><strong class="orange">Eliminated Costs for Parts:</strong>
+            <strong class="float-right"> $<%= ActiveSupport::NumberHelper.number_to_delimited(@roi.total_annual_savings) %></strong>
+          </li>
+          <li class="list-group-item"><strong class="orange">Savings per Service Technician:</strong>
+            <strong class="float-right"> $<%= ActiveSupport::NumberHelper.number_to_delimited(@roi.savings_per_service_tech) %></strong>
+          </li>
+          <li class="list-group-item"><strong class="orange">Monthly Pricing per Service Technician:</strong> 
+            <strong class="float-right"> $<%= ActiveSupport::NumberHelper.number_to_delimited(format('%.2f', @roi.monthly_pricing_per_service_tech)) %></strong>
+          </li>
+          <li class="list-group-item"><strong class="orange">Return on Investment:</strong>
+            <strong class="float-right"><%= ActiveSupport::NumberHelper.number_to_delimited(@roi.total_roi) %>%</strong>
+          </li>
+          <li class="list-group-item"><strong class="orange">Payback Achieved After:</strong>
+            <strong class="float-right"> <%= ActiveSupport::NumberHelper.number_to_delimited(@roi.payback_achieved) %> Days</strong>
+          </li>
+        </ul>
+      </div>
+    </div>
+     <p class="disclaimer-text">*Results are an estimate based on the data provided and average industry costs.</p>
+  </div>
+
+    <div class="row col-12" style="page-break-inside: avoid; page-break-before: always;">
+      <div class="pdf-page-header">
+        <h2 class="orange">Priorities</h2>
+      </div>
+      <p>Every field service organization has a unique combination of services, verticals, value propositions and customer base. Therefore, every organization has a different concern, goal or KPI to prioritize. However, most field service directors will agree that increased efficiency is almost always the answer! The main purpose of AnswersAnywhere is to increase efficiency and productivity for field service technicians, improving the all-important KPIs and alieving the most common concerns service centers are currently facing.</p>
+    </div>
+
+    <% get_benefits_order(@roi.priority).each_with_index do |partial, i| %>
+    <%= render partial, idx: i %>
+    <% end %>
+
+    <div class="row col-12 pdf-page-header" style="page-break-inside: avoid;">
+      <div>
+        <h2 class="orange">Knowledge Turns Field Service Organizations into Profit Centers</h2>
+      </div>
+      <p>In the last few years, the field service industry has come to the forefront of technology and innovation, and companies are readily recognizing their own service organizations as profit centers. Because of this, the pressure is on to optimize service delivery, reduce overhead costs and maintain customer retention.</p>
+      <p>It&apos;s simply not enough to have a knowledge management system in place. Knowledge must be well-organized, mobile and continuously optimized to ensure technicians can overcome connectivity issues in the field to access the correct information quickly. </p>
+      <p>By creating more efficient technicians, AnswersAnywhere can improve service delivery for your organizations, increasing profits and creating satisfied customers.</p>
+
+      <div class="text-center spacing">
+        <%= wicked_pdf_image_tag("devices.png", alt: "devices", style: "height:200px;") %>
+      </div>
+    </div>
+
+    <div class="pdf-page-header" style="page-break-before: always;">
+        <h2 class="orange">Start Transforming Your Field Service Organization Today!</h2>
+      <p>Contact us for a demo of AnswersAnywhere and discuss more in depth how our knowledge-as-a-service solution can increase fix rates, lower services costs, create happier customers and set new records for field service efficiency!</p>
+    <%= wicked_pdf_image_tag("infomill.png", alt: "infomill", class: "float-right spacing") %>
+    </div>
+
+    
+    <div class="row col-10">
+      <h5>Visit: <a href="http://www.infomill.com">www.infomill.com</a></h5>
+      <h5>Email: <a href="mailto:info@infomill.com" target="_top">info@infomill.com</a></h5> 
+      <h5>Call: (US) 206-489-5554</h5>
+      <h5>(UK) 0 1332-253170</h5>
+    </div>   
+      <h4 class="teal-header margin-top-buffer text-center col-12">Our AnswersAnywhere solution is already in use by 50,000 field service technicians worldwide, every day!</h4>
+
+      <p class="teal margin-top-buffer text-center col-12">We&apos;re fully integrated with the following field service management platforms, creating a single pane of glass solution for field service technicians all over the world: </p>
+     <%= wicked_pdf_image_tag("all_logos.png", alt: "all_logos", class: "spacing text-center") %>
+    </div>
+</body>
+</html>

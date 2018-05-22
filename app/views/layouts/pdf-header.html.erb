@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Choice Prospects</title>
+  <%= wicked_pdf_javascript_include_tag "http://code.jquery.com/jquery-1.10.0.min.js" %>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= wicked_pdf_stylesheet_link_tag "application" %>
+  <%= wicked_pdf_javascript_include_tag "application" %>
+  <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+  <%= wicked_pdf_javascript_include_tag "number_pages" %>
+  </head>
+  <body onload='number_pages'>
+    <div id="header">
+  <%= wicked_pdf_image_tag("logo.png", alt: "logo", class: "float-right float-up", style: "height:80px;") %>
+    </div>
+    <div id="content">
+      <%= yield %>
+    </div>
+  </body>
+</html>

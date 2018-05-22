@@ -1,0 +1,279 @@
+  <nav class="navbar navbar-default black-tessel">
+    <a class="navbar-brand" href="#"><%= image_tag("answers_anywhere.png") %></a>
+      <div class="text-white navbar-right tagline">TRANSFORMING FIELD SERVICE SINCE 1996</div>
+  </nav>
+
+  <div class="container">
+    <div id="first_page">
+      <div class="page-header">
+        <h1 class="white-heading">ROI Calculator</h1>
+        <h3 class="sub-heading">How will AnswersAnywhere help you? Find out by answering a few questions!</h3>
+      </div>
+
+      <%= form_with model: @roi, id: 'form_page' do |f| %>
+      <div class="col-md-4 col-xs-12 offset-md-4">
+        <div class="form-group row">
+          <label for="priority">What is your priority?</label>
+          <%= select_tag 'roi[priority]', options_for_select(RoisHelper::Priorities), class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group row">
+          <label for="product_types">How many different product types do you have?</label>
+          <%= f.telephone_field :product_types, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group row">
+          <label for="field_technicians">How many field technicians are in your organization?</label>
+          <%= f.telephone_field :field_technicians, class: "form-control", required: true %>
+        </div>
+
+        <div class="page-header row">
+          <h3>Personalize Your Report</h3>
+        </div>
+
+        <div class="form-group row">
+          <label for="name">Name</label>
+          <%= f.text_field :name, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group row">
+          <label for="email">Email</label>
+          <%= f.email_field :email, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group row">
+          <label for="telephone">Phone</label>
+          <%= f.telephone_field :telephone, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group row">
+          <label for="company">Company</label>
+          <%= f.text_field :company, class: "form-control", required: true %>
+        </div>
+
+        <div class="form-group row">
+          <%= f.submit "Calculate ROI" %>
+        </div>
+        <% end %>
+
+      </div>
+    </div>
+
+    <div id="second_page" style='display: none;'>
+      <div class="row">
+        <div class="col-md-9 col-xs-12 offset-md-1">
+          <div class="page-header">
+            <h1>Savings</h1>
+          </div>
+          <div class="d-block d-sm-none">
+
+            <div class="card" style="margin-left: -5px">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item justified">Profit from Additional Truck Rolls: 
+                  <strong>$<span id="profit_from_additional_truck_rolls_small"></span></strong>
+                </li>
+                <li class="list-group-item justified">Eliminated Return Visit Costs:
+                  <strong>$<span id="eliminated_costs_from_return_visits_small"></span></strong>
+                </li>
+                <li class="list-group-item justified">Eliminated Costs for Parts:
+                  <strong>$<span id="total_annual_savings_small"></span></strong>
+                </li>
+                <li class="list-group-item justified">Savings per Service Technician:
+                  <strong>$<span id="savings_per_service_tech_small"></span></strong>
+                </li>
+                <li class="list-group-item justified">Monthly Pricing per Service Technician: 
+                  <strong>$<span id="monthly_pricing_per_service_tech_small"></span></strong>
+                </li>
+                <li class="list-group-item justified">Return on Investment: 
+                  <strong><span id="total_roi_small"></span>%</strong>
+                </li>
+                <li class="list-group-item justified">Payback Achieved After: 
+                  <strong><span id="payback_achieved_small"></span> Days</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="d-none d-sm-block">
+
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" id="savings-tab">Savings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pricing-tab">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="roi-tab">ROI</a>
+              </li>
+            </ul>
+
+            <div class="card" style="margin-left: -5px">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item pdf-paragraph savings-info">Profit from Additional Truck Rolls: 
+                  <strong class="float-right">$<span id="profit_from_additional_truck_rolls"></span></strong>
+                </li>
+                <li class="list-group-item savings-info">Eliminated Costs from Return Visits:
+                  <strong class="float-right">$<span id="eliminated_costs_from_return_visits"></span></strong>
+                </li>
+                <li class="list-group-item savings-info">Eliminated Costs for Parts:
+                  <strong class="float-right">$<span id="total_annual_savings"></span></strong>
+                </li>
+                <li class="list-group-item savings-info">Savings per Service Technician:
+                  <strong class="float-right">$<span id="savings_per_service_tech"></span></strong>
+                </li>
+                <li class="list-group-item pricing-info" style='display: none;'>Monthly Pricing per Service Technician: 
+                  <strong class="float-right">$<span id="monthly_pricing_per_service_tech"></span></strong>
+                </li>
+                <li class="list-group-item roi-info" style='display: none;'>Return on Investment: 
+                  <strong class="float-right"><span id="total_roi"></span>%</strong>
+                </li>
+                <li class="list-group-item roi-info" style='display: none;'>Payback Achieved After: 
+                  <strong class="float-right"><span id="payback_achieved"></span> Days</strong>
+                </li>
+              </ul>
+            </div>
+            <p class="disclaimer-text">*Results are an estimate based on the data provided and average industry costs.</p>
+          </div>
+          <button type="button" id="assumptions-button" class="margin-top-buffer btn btn-info">Show Assumptions</button>
+        </div>
+      </div>
+
+      <div class="row margin-top-buffer" id="business-assumptions" style='display: none;'>
+        <div class="col-md-8 col-xs-12 offset-md-1 assumptions white-background">
+          <h4 class="text-warning">Assumptions:</h4>
+          <ul>
+            <li>5% update to content per annum</li>
+            <li>$430 per Truck Roll</li>
+            <li>Each Truck Roll consists of 30 mins travel to and from site and 1 hour on-site</li>
+            <li>48 month contract term</li>
+            <li>4% repeat visits due to inadequate technical information on-site</li>
+            <li>15% shorter site visits from rapid access to relevant technical information</li>
+            <li>2 Truck Rolls equivalent from savings for every additional Truck Roll achieved</li>
+            <li>Each Product has 30 page IPC with 15 exploded parts diagrams and 30 page service manual</li>
+            <li>One Service Document and IPC per product type</li>
+            <li>50% profit over cost from each Truck Roll achieved</li>
+            <li>4 site visits per day</li>
+            <li>45 working weeks per year</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row top-buffer-large">
+        <div class="col-md-2"></div>
+        <div class="col-xs-12 col-md-8">
+          <div id="chartContainer" class="white-background">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="row top-buffer-large bottom-spacing col-md-8 col-xs-12 offset-md-1 offset-md-1">
+        <div class="col-xs-3">
+          <div class="btn-group">
+            <a class="btn btn-sm btn-success" id="pdf_link">Download PDF</a>
+            <div class="spinner" id="spinner" style='display: none;'></div>
+            <a class="btn btn-sm btn-warning" id="change_entries_link">Change Entries</a>
+            <a class="btn btn-sm btn-info" id="schedule_meeting_button">Schedule a Meeting</a>
+          </div>
+        </div>
+        <div class="col-xs-4"></div>
+        <div id="schedule_meeting_form" style='display: none;' class="move-right">
+
+          <div class="alert alert-success" role="alert" style='display: none;' id="thank_you">
+            Thank you! We'll be in touch soon.
+          </div>
+
+          <div id="inner_form margin-top-buffer">
+            <div class="col-xs-5">
+              <div class="form-group row">
+                <%= form_with model: Roi.new, method: :put, id: 'schedule_meeting' do |f| %>
+
+                <div class="form-group row">
+                  <h3 class="orange-header">Schedule a Meeting</h3>
+                  <%= f.hidden_field :id, id: 'roi_id' %>
+                </div>
+
+                <div class="form-group row">
+                  <label for="name">Name</label>
+                  <%= f.text_field :name, class: "form-control", required: true, id: 'roi_name' %>
+                </div>
+
+                <div class="form-group row">
+                  <label for="email">Email</label>
+                  <%= f.email_field :email, class: "form-control", required: true, id: 'roi_email' %>
+                </div>
+
+                <div class="form-group row">
+                  <label for="telephone">Phone</label>
+                  <%= f.telephone_field :telephone, class: "form-control", required: true, id: 'roi_telephone' %>
+                </div>
+
+                <div class="form-group row">
+                  <label for="company">Company</label>
+                  <%= f.text_field :company, class: "form-control", required: true, id: 'roi_company' %>
+                </div>
+
+                <div class="form-group row">
+                  <%= f.submit "Schedule Meeting" %>
+                </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="product-description">
+    <div class="col-md-8 col-xs-12 offset-md-2">
+      <h3>Find Out How To Increase First-Time Fix Rates by 19% and Save $50,000 Per Technician Per Year</h3>
+
+      <p>AnswersAnywhere is fully integrated with leading Field Service Management platforms to provide field service technicians with a “Single Source of Truth" for all the information and knowledge required for a successful customer visit.</p>
+
+      <h3>What Can AnswersAnywhere Do For You?</h3>
+
+      <h3><%= image_tag "product-arrow.png", class: 'right-buffer' %>Increased Profits</h3>
+
+      <p>By significantly improving the efficiency and effectiveness of your service technicians, they can complete more jobs per day and increase overall profit margins for your organization. Saves $50,000 per technician per year!</p>
+
+      <h3><%= image_tag "product-smiley.png", class: 'right-buffer' %>Happier Customers</h3>
+      <p>Reduce time on site by 19% by having all the information your technicians need right at their fingertips. Ensures hassle-free repairs, allowing technicians to provide a higher standard of professional service for your customers.</p>
+
+      <h3><%= image_tag "product-clock.png" , class: 'right-buffer' %>Reduced Time on Site</h3>
+      <p>Instant access to the technical and parts information your technicians need at the point of service means faster fixes, fewer incorrect part orders and fewer return visits.</p>
+    </div>
+  </div>
+
+  <div class="col-md-6 col-xs-12 offset-md-2 what-is">
+    <h3>What is AnswersAnywhere?</h3>
+
+    <p>AnswersAnywhere is a knowledge management solution that accelerates fault diagnosis, streamlines parts ordering and increases first time fix rates for organizations around the world.</p>
+
+    <p>AnswersAnywhere is a Knowledge-as-a-Service (KaaS). Services include discovering, delivering and continuously updating context-aware product, break/fix and installation knowledge for delivery to field service technicians’ mobile devices.</p>
+
+    <p>AnswersAnywhere is a full service solution that includes discovery and “mobilization” of original content sources. We also keep your new field service knowledge base up-to-date on a daily, weekly or monthly basis.</p>
+
+    <p>AnswersAnywhere is perfect for organizations with 75 or more field service technicians who are interested in improving key performance indicators and keeping their customers happy.</p>
+
+  </div>
+  <footer class="navbar navbar-default navbar-fixed-bottom">
+    <p class="text-white">Copyright © 2017 Infomill. All Rights Reserved.  | 801 2nd Avenue Suite 827, Seattle WA  98104 | (206) 489-5554 | View our privacy statement.</p>
+    <ul class="list-unstyled list-inline">
+      <li class="list-inline-item">
+        <a type="button" class="btn btn-default btn-sm icon-link" href="https://twitter.com/infomill" target="_blank">
+          <%= fa_stacked_icon "twitter" %>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a type="button" class="btn btn-default btn-sm icon-link" href="https://www.linkedin.com/company/infomill/" target="_blank">
+          <%= fa_stacked_icon "linkedin" %>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a type="button" class="btn btn-default btn-sm icon-link" href="https://www.facebook.com/infomill/" target="_blank">
+          <%= fa_stacked_icon "facebook" %>
+        </a>
+      </li>
+    </ul>
+  </footer>
