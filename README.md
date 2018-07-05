@@ -1,24 +1,16 @@
-# README
+# ROI calculator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This calculator provides a data visualization for return on investment for the implementation of inventory management software and dynamically creates a PDF for the user based on their stated business priority. Note - this is not the production deployment so the ActionMailer functionality is disabled.
 
-Things you may want to cover:
+Technologies used:
 
-* Ruby version
+* Chart.js
 
-* System dependencies
+* JQuery
 
-* Configuration
+* Bootstrap 4
 
-* Database creation
+* Postgresql
 
-* Database initialization
+* WickedPDF
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
